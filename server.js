@@ -8,6 +8,8 @@ const logger = require('sonos-discovery/lib/helpers/logger');
 const SonosHttpAPI = require('./lib/sonos-http-api.js');
 const nodeStatic = require('node-static');
 const settings = require('./settings');
+const keypress = require('./lib/helpers/key-press.js');
+
 
 const fileServer = new nodeStatic.Server(settings.webroot);
 const discovery = new SonosSystem(settings);
@@ -82,6 +84,7 @@ process.on('unhandledRejection', (err) => {
 
 server.listen(settings.port, function () {
   logger.info('http server listening on port', settings.port);
+  keypress.keyPressCommands();
 });
 
 server.on('error', (err) => {
